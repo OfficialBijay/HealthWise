@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Constants } from "../util/Constants";
 
-const HeadingComponent = ({ navigation, headingText, fontSize }) => {
+const HeadingComponent = ({ headingText, fontSize }) => {
   return (
     <View style={styles.heading}>
       {/* <Icon
@@ -19,6 +19,7 @@ const HeadingComponent = ({ navigation, headingText, fontSize }) => {
 
 const styles = StyleSheet.create({
   heading: {
+    marginTop: 15,
     height: "8%",
     position: "relative",
     flexDirection: "row",

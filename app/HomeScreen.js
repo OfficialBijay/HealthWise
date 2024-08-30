@@ -10,13 +10,14 @@ import {
   BackHandler,
   Alert,
 } from "react-native";
-import { Constants } from "../util/Constants";
-import HeadingComponent from "../components/HeadingComponent";
+import { Constants } from "../src/util/Constants";
+import HeadingComponent from "../src/components/HeadingComponent";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
-import { getGreetingMessage } from "../util/UtilityFunction";
+import { getGreetingMessage } from "../src/util/UtilityFunction";
+import { router } from "expo-router";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   const [imageUri, setImageUri] = useState(null);
   const [parsedText, setParsedText] = useState(null);
   const [scanBtnText, setScanBtnText] = useState("Scan Ingredients");
@@ -92,7 +93,7 @@ const HomeScreen = ({ navigation }) => {
       console.log("OCR API response:", json);
       // setParsedText(json.ParsedResults[0].ParsedText);
       const ingDetails = json.ParsedResults[0].ParsedText;
-      navigation.navigate("ingredientDetails", {ingDetails});
+      router.push({pathname: "IngredientDetailsScreen", params: {ingDetails: ingDetails}})
     } catch (error) {
       console.error("OCR API request failed:", error);
     }
@@ -118,13 +119,12 @@ const HomeScreen = ({ navigation }) => {
     );
 
     return () => backHandler.remove();
-  }, [navigation]);
+  }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <HeadingComponent
-        navigation={navigation}
         headingText={"Health Wise"}
         fontSize={25}
       />
@@ -134,7 +134,7 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.nameContainer}>
               <Text style={styles.name}>Hi Bijay . . .</Text>
               <Image
-                source={require("../../assets/waving-hand-3d.gif")}
+                source={require("../assets/waving-hand-3d.gif")}
                 style={styles.iconImage}
               />
             </View>
@@ -146,7 +146,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
           <View style={styles.profileImageContainer}>
             <Image
-              source={require("../../assets/male-3d.png")}
+              source={require("../assets/male-3d.png")}
               style={styles.image}
             />
           </View>
@@ -161,7 +161,7 @@ const HomeScreen = ({ navigation }) => {
             <Image source={{ uri: imageUri }} style={styles.image} />
           ) : (
             <Image
-              source={require("../../assets/search_image.jpg")}
+              source={require("../assets/search_image.jpg")}
               style={styles.image}
             />
           )}
@@ -184,7 +184,7 @@ const HomeScreen = ({ navigation }) => {
           {!imageUri && (
             <TouchableOpacity
               style={[styles.btn, { backgroundColor: "#FF6600" }]}
-              onPress={() => navigation.navigate("profile")}
+              onPress={() => router.push("ProfileScreen")}
             >
               <Text style={styles.btnText}>Update Profile</Text>
             </TouchableOpacity>

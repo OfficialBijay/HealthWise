@@ -10,10 +10,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { Constants } from "../util/Constants";
-import HeadingComponent from "../components/HeadingComponent";
+import { Constants } from "../src/util/Constants";
+import HeadingComponent from "../src/components/HeadingComponent";
+import { router } from "expo-router";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   const route = useRoute();
   // Get the userDetails object from the route parameters
   // const { userDetails } = route.params;
@@ -41,7 +42,7 @@ const ProfileScreen = ({ navigation }) => {
             try {
               console.log("Trying logging out......");
               // write logout logic
-              navigation.navigate("home");
+              router.push("HomeScreen");
               console.log("Logged out successfully......");
             } catch (error) {
               // Handle error if AsyncStorage clearing fails
@@ -60,20 +61,19 @@ const ProfileScreen = ({ navigation }) => {
       "hardwareBackPress",
       () => {
         // Navigate back to the previous screen
-        navigation.goBack();
+        router.back();
         // Return true to prevent the default behavior (exiting the app)
         return true;
       }
     );
 
     return () => backHandler.remove();
-  }, [navigation]);
+  },[]);
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <HeadingComponent
-        navigation={navigation}
         headingText={"Profile"}
         fontSize={25}
       />
@@ -81,7 +81,7 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.profileImageContainer}>
           <View style={styles.profileImage}>
             <Image
-              source={require("../../assets/male-3d.png")}
+              source={require("../assets/male-3d.png")}
               style={styles.image}
             />
           </View>
@@ -124,7 +124,7 @@ const ProfileScreen = ({ navigation }) => {
               styles.btn,
               { backgroundColor: Constants.THEME_COLOR_DARK },
             ]}
-            onPress={() => navigation.navigate("home")}
+            onPress={() => router.push("HomeScreen")}
           >
             <Text style={styles.btnText}>Back</Text>
           </TouchableOpacity>

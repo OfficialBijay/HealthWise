@@ -8,11 +8,12 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import HeadingComponent from "../components/HeadingComponent";
-import { Constants } from "../util/Constants";
+import HeadingComponent from "../src/components/HeadingComponent";
+import { Constants } from "../src/util/Constants";
 import { useRoute } from "@react-navigation/native";
+import { router } from "expo-router";
 
-const IngredientDetailsScreen = ({ navigation }) => {
+const IngredientDetailsScreen = () => {
   const route = useRoute();
   // Get the userDetails object from the route parameters
   // const { ingDetails } = route.params;
@@ -24,20 +25,19 @@ const IngredientDetailsScreen = ({ navigation }) => {
       "hardwareBackPress",
       () => {
         // Navigate back to the previous screen
-        navigation.goBack();
+        router.back();
         // Return true to prevent the default behavior (exiting the app)
         return true;
       }
     );
 
     return () => backHandler.remove();
-  }, [navigation]);
+  }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <HeadingComponent
-        navigation={navigation}
         headingText={"Ingredient Details"}
         fontSize={25}
       />
@@ -52,7 +52,7 @@ const IngredientDetailsScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.btn}
             onPress={() => {
-              navigation.goBack();
+              router.back();
             }}
           >
             <Text style={styles.btnText}>Back</Text>

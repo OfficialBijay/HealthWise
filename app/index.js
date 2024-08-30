@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, ImageBackground, Image } from "react-native";
-import { Constants } from "../util/Constants"
+import { Constants } from "../src/util/Constants"
+import { router } from "expo-router";
 
-const SplashScreen = ({navigation}) => {
+export default function SplashScreen() {
 
   useEffect(() => {
     setTimeout(() => {
-        navigation.replace('home');
+        router.push('HomeScreen');
       }, 3000); // 3 seconds delay for the splash screen
-  }, [navigation]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -55,5 +56,3 @@ const styles = StyleSheet.create({
     color: Constants.THEME_COLOR,
   }
 });
-
-export default SplashScreen;

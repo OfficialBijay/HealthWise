@@ -2,6 +2,7 @@
   "expo": {
     "name": "HealthWise",
     "slug": "HealthWise",
+    "scheme": "HealthWise",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,10 +28,16 @@
       "permissions": [
         "CAMERA",
         "WRITE_EXTERNAL_STORAGE"
-      ]
+      ],
+      "package": "com.cchane.HealthWise"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e7d19dc4-b831-4cf5-b67d-cc61d56e5cd5"
+      }
     }
   }
 }
